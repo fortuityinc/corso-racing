@@ -1,0 +1,384 @@
+<!doctype html>
+<html lang="en" class="no-js">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Corso Racing · Lights Out</title>
+<meta name="description" content="Corso Racing is a family race team from Charlotte, North Carolina: Nicholas Corso #11 and Luca Corso #57 in karts and non-wing outlaw micro sprints.">
+<!-- Flip to "index, follow" once the Corso family signs off on the site. -->
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#050505">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Corso Racing · Lights Out">
+<meta property="og:description" content="A family race team. Two drivers, two numbers, one fist full of arrows.">
+<meta property="og:url" content="https://corso.racing/">
+<meta property="og:image" content="https://corso.racing/assets/img/og.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/logo/favicon-32.png">
+<link rel="apple-touch-icon" href="assets/logo/apple-touch-icon.png">
+<link rel="manifest" href="site.webmanifest">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,500;0,600;0,700;0,800;0,900;1,700;1,800;1,900&family=Barlow:wght@400;500;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="preload" as="image" href="assets/img/hero-plate.webp" fetchpriority="high">
+<link rel="preload" as="image" href="assets/img/hero.webp">
+<link rel="stylesheet" href="css/style.css">
+<script>document.documentElement.className = 'js';</script>
+</head>
+<body>
+
+<!-- ============ LOADER: the start lights ============ -->
+<div class="loader" id="loader" aria-hidden="true">
+  <div class="lights">
+    <i></i><i></i><i></i><i></i><i></i>
+  </div>
+  <p class="loader-line"><span>LOADING REEL</span><b id="loadPct">00</b></p>
+  <p class="loader-out">LIGHTS OUT</p>
+</div>
+
+<!-- ============ FILM FINISH (fixed) ============ -->
+<canvas class="fx" id="fx" aria-hidden="true"></canvas>
+<div class="grain" aria-hidden="true"></div>
+<div class="bars" aria-hidden="true"><i></i><i></i></div>
+
+<!-- ============ HUD ============ -->
+<header class="hud hud-top">
+  <a class="brand" href="#lights" aria-label="Corso Racing, back to the top">
+    <img src="assets/logo/mark.webp" alt="" width="36" height="32">
+    <span>CORSO <em>RACING</em></span>
+  </a>
+  <p class="hud-reel" aria-live="polite"><span id="reelNo">01</span><b id="reelName">LIGHTS OUT</b></p>
+  <div class="hud-actions">
+    <button class="hud-btn" id="playFilm" type="button"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2 1l9 5-9 5z"/></svg>FILM <span>0:41</span></button>
+    <button class="hud-btn" id="soundBtn" type="button" aria-pressed="false"><span class="eq" aria-hidden="true"><i></i><i></i><i></i><i></i></span><span id="soundLbl">SOUND OFF</span></button>
+  </div>
+</header>
+
+<footer class="hud hud-bottom" aria-hidden="true">
+  <p class="tc"><span class="rec"></span><b id="tc">00:00:00:00</b><span id="reelOf">REEL 01/10</span></p>
+  <div class="scrub" id="scrub"><i class="scrub-fill" id="scrubFill"></i></div>
+  <p class="speedo"><span>MPH</span><b id="mph">000</b><span class="lap">LAP 1 · 2026</span></p>
+</footer>
+
+<main id="film">
+
+<!-- ============ REEL 01 · LIGHTS OUT ============ -->
+<section class="scene" id="lights" data-reel="LIGHTS OUT" style="--len:3.4">
+  <div class="stage">
+    <div class="layer plate"><img src="assets/img/hero-plate.webp" srcset="assets/img/hero-plate-1600.webp 1600w, assets/img/hero-plate.webp 2880w" sizes="100vw" alt="" fetchpriority="high"></div>
+    <div class="layer car streak" aria-hidden="true"><img src="assets/img/hero-streak.webp" alt=""></div>
+    <div class="layer car"><img src="assets/img/hero.webp" srcset="assets/img/hero-1600.webp 1600w, assets/img/hero.webp 2880w" sizes="100vw" alt="The #11 Corso Racing micro sprint sliding through a red-clay corner at night (concept art)"></div>
+    <div class="shade"></div>
+    <div class="hero-copy">
+      <p class="kicker"><span>A family race team</span><span>Charlotte, North Carolina</span></p>
+      <h1 class="mega" aria-label="Corso Racing"><span class="w1">CORSO</span><span class="w2">RACING</span></h1>
+      <p class="hero-sub">Two brothers. Two numbers. One fist full of arrows.</p>
+    </div>
+    <img class="hero-emblem" src="assets/logo/emblem.webp" alt="" width="951" height="794">
+    <p class="chip hero-chip"><b>#11</b> Non-wing outlaw micro sprint <span>Concept livery</span></p>
+    <p class="cue"><span>Scroll to roll film</span><i></i></p>
+  </div>
+</section>
+
+<!-- ============ REEL 02 · THE ARMS ============ -->
+<section class="scene" id="arms" data-reel="THE ARMS" style="--len:4.2">
+  <div class="stage">
+    <div class="arms-copy">
+      <p class="reel-tag">Reel 02 <span>The Arms</span></p>
+      <div class="beat b1">
+        <h2>It started with a coat of arms.</h2>
+        <p>The Corso family arms: a red field, an armored fist, a bundle of arrows, and roses.</p>
+      </div>
+      <div class="beat b2">
+        <h2>One arrow snaps. <em>A bundle doesn't.</em></h2>
+        <p>It's the oldest lesson there is, and it's the whole idea behind this team. A father and two sons, bound together, pointed the same way.</p>
+      </div>
+      <div class="beat b3">
+        <h2>So we redrew it <em>for a race car.</em></h2>
+        <p>The gauntlet became the driver's hand. The arrows became speed. The rose stayed, because it's still the family's.</p>
+      </div>
+    </div>
+    <div class="arms-art">
+      <figure class="crest">
+        <img src="assets/img/crest.webp" alt="The Corso family coat of arms: an armored arm gripping a bundle of arrows on a red shield, with two roses" width="694" height="1024" loading="lazy">
+        <svg class="notes" viewBox="0 0 694 1024" aria-hidden="true">
+          <path pathLength="1" class="n1" d="M392 270 L250 120 L40 120"/>
+          <path pathLength="1" class="n2" d="M600 350 L660 210 L690 210"/>
+          <path pathLength="1" class="n3" d="M300 710 L120 900 L20 900"/>
+          <circle class="d1" cx="392" cy="270" r="9"/><circle class="d2" cx="600" cy="350" r="9"/><circle class="d3" cx="300" cy="710" r="9"/>
+        </svg>
+        <figcaption class="note-l l1">The gauntlet</figcaption>
+        <figcaption class="note-l l2">The arrows</figcaption>
+        <figcaption class="note-l l3">The roses</figcaption>
+      </figure>
+      <div class="speedlines" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+      <img class="arms-emblem" src="assets/logo/emblem.webp" alt="The Corso Racing emblem" width="951" height="794" loading="lazy">
+    </div>
+  </div>
+</section>
+
+<!-- ============ REEL 03 · THE CREW ============ -->
+<section class="scene" id="crew" data-reel="THE CREW" style="--len:5.4">
+  <div class="stage">
+    <div class="crew-head">
+      <p class="reel-tag">Reel 03 <span>The Crew</span></p>
+      <h2>Meet the team.</h2>
+    </div>
+    <div class="strip" id="strip">
+      <article class="frame tp">
+        <p class="edge">CORSO 2026 ▸ TP <span>01</span></p>
+        <div class="pic"><img src="assets/img/paddock-1280.webp" alt="" loading="lazy"><b class="mono">TP</b></div>
+        <div class="cap">
+          <p class="role">Team Principal · Member-Manager</p>
+          <h3>Dr. Christopher D. Corso</h3>
+          <p>Started Corso Racing in 2026 so his sons could go racing as a real team: a company, a plan, and a job for everyone in it.</p>
+        </div>
+      </article>
+      <article class="frame driver">
+        <p class="edge">CORSO 2026 ▸ 11A <span>02</span></p>
+        <div class="pic"><img src="assets/img/nick.webp" alt="Nicholas Corso in his helmet before a micro sprint run" loading="lazy"><b class="num">11</b></div>
+        <div class="cap">
+          <p class="role">Driver · Media &amp; Partnerships</p>
+          <h3>Nicholas Corso</h3>
+          <dl class="stats"><div><dt>Kart</dt><dd>Briggs Heavy</dd></div><div><dt>Micro sprint</dt><dd>Non-wing outlaw</dd></div><div><dt>Seasons</dt><dd>2</dd></div></dl>
+          <p>Nick drives the #11 kart and the team's Hyper X7. Off the track he's the team's camera: he has run camera for Kart Chaser at a nationally broadcast race. He's headed for mechanical and automotive engineering.</p>
+        </div>
+      </article>
+      <article class="frame driver">
+        <p class="edge">CORSO 2026 ▸ 57A <span>03</span></p>
+        <div class="pic"><img src="assets/img/luca-57.webp" alt="Luca Corso seated in the #57 kart on the grid" loading="lazy"><b class="num">57</b></div>
+        <div class="cap">
+          <p class="role">Driver · Operations &amp; Projects</p>
+          <h3>Luca Corso</h3>
+          <dl class="stats"><div><dt>Kart</dt><dd>Briggs Junior</dd></div><div><dt>Micro sprint</dt><dd>Non-wing outlaw</dd></div><div><dt>Seasons</dt><dd>2</dd></div></dl>
+          <p>Luca drives the #57 and runs the program side: the plan, the parts, the logistics, the numbers. He's a builder at heart, drawn to contracting and construction.</p>
+        </div>
+      </article>
+      <article class="frame wide">
+        <p class="edge">CORSO 2026 ▸ 11 + 57 <span>04</span></p>
+        <div class="pic"><img src="assets/img/brothers.webp" alt="Nicholas and Luca Corso together in the paddock" loading="lazy"></div>
+        <div class="cap">
+          <p class="role">11 + 57</p>
+          <h3>Different seats. Same trailer.</h3>
+        </div>
+      </article>
+      <article class="frame sheet">
+        <p class="edge">CORSO 2026 ▸ CONTACT SHEET <span>05</span></p>
+        <div class="contact">
+          <figure><img src="assets/img/kart-11.webp" alt="The #11 MGM kart on the grid" loading="lazy"><figcaption>Grid</figcaption></figure>
+          <figure><img src="assets/img/cockpit-11.webp" alt="Strapped into a micro sprint, helmet on" loading="lazy"><figcaption>Belted in</figcaption></figure>
+          <figure><img src="assets/img/orange-micro.webp" alt="A micro sprint in the pits at a red-clay oval" loading="lazy"><figcaption>Red clay</figcaption></figure>
+          <figure><img src="assets/img/black-micro.webp" alt="Getting set in the micro sprint cockpit" loading="lazy"><figcaption>Seat time</figcaption></figure>
+        </div>
+        <div class="cap">
+          <p class="role">Contact sheet</p>
+          <h3>Race weekends.</h3>
+          <p>Karts on the grid. Micro sprints on the red clay. Every weekend, on the record.</p>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============ REEL 04 · THE MACHINES ============ -->
+<section class="scene" id="machines" data-reel="THE MACHINES" style="--len:4.6">
+  <div class="stage">
+    <p class="reel-tag mach-tag">Reel 04 <span>The Machines</span></p>
+    <div class="machine m1">
+      <b class="ghost" aria-hidden="true">11</b>
+      <img class="mach-img" src="assets/img/micro-livery.webp" alt="The Hyper X7 micro sprint in a concept Corso Racing livery, #11 (concept art)" loading="lazy">
+      <div class="mach-copy">
+        <h2>The micro sprint.</h2>
+        <p class="lede">Hyper X7 · non-wing outlaw</p>
+        <ul class="specs">
+          <li><span>Chassis</span><b>Hyper X7</b></li>
+          <li><span>Front</span><b>Coil-over</b></li>
+          <li><span>Rear</span><b>Torsion bar</b></li>
+          <li><span>Power</span><b>Yamaha</b></li>
+          <li><span>Fuel</span><b>Guhl's injection</b></li>
+          <li><span>Joined</span><b>August 2026</b></li>
+        </ul>
+        <p class="chip">Concept livery <span>#11</span></p>
+      </div>
+    </div>
+    <div class="machine m2">
+      <b class="ghost" aria-hidden="true">57</b>
+      <img class="mach-img" src="assets/img/kart-livery.webp" alt="A sprint kart in a concept Corso Racing livery, #57 (concept art)" loading="lazy">
+      <div class="mach-copy">
+        <h2>The karts.</h2>
+        <p class="lede">MGM chassis · Briggs power</p>
+        <ul class="specs">
+          <li><span>#11</span><b>Briggs Heavy</b></li>
+          <li><span>#57</span><b>Briggs Junior</b></li>
+          <li><span>Chassis</span><b>MGM</b></li>
+          <li><span>Racing at</span><b>Trackhouse Motorplex</b></li>
+        </ul>
+        <p class="chip">Concept livery <span>#57</span></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ REEL 05 · THE SEASON ============ -->
+<section class="scene" id="season" data-reel="THE 2026 SEASON" style="--len:5.6">
+  <div class="stage">
+    <div class="season-head">
+      <p class="reel-tag">Reel 05 <span>The 2026 Season</span></p>
+      <h2>Lap one.</h2>
+    </div>
+    <div class="oval-wrap">
+      <svg class="oval" viewBox="0 0 1000 560" aria-hidden="true">
+        <defs>
+          <linearGradient id="clay" x1="0" x2="1"><stop offset="0" stop-color="#3a1309"/><stop offset="1" stop-color="#5a1f0f"/></linearGradient>
+        </defs>
+        <path class="track-bed" d="M300 60 H700 A220 220 0 0 1 700 500 H300 A220 220 0 0 1 300 60 Z"/>
+        <path class="track-line" id="racingLine" d="M500 60 H300 A220 220 0 0 0 300 500 H700 A220 220 0 0 0 700 60 Z"/>
+        <path class="track-done" id="trackDone" d="M500 60 H300 A220 220 0 0 0 300 500 H700 A220 220 0 0 0 700 60 Z" pathLength="1"/>
+        <g class="start"><rect x="490" y="30" width="20" height="60"/></g>
+        <g id="checkpoints"></g>
+        <g class="car-dot" id="carDot"><circle r="15"/><text y="5">11</text></g>
+        <text class="infield" x="500" y="270">CORSO</text>
+        <text class="infield sm" x="500" y="318">2026 · LAP ONE</text>
+      </svg>
+    </div>
+    <ol class="events" id="events">
+      <li data-at="0.04"><time>AUG 12</time><h3>Millbridge</h3><p>Practice day on the red clay.</p><span class="tag">Dirt</span></li>
+      <li data-at="0.14"><time>AUG 17</time><h3>The car</h3><p>A Hyper X7 micro sprint joins the team.</p><span class="tag">Garage</span></li>
+      <li data-at="0.25"><time>AUG 21</time><h3>The company</h3><p>Corso Racing LLC is organized.</p><span class="tag">Team</span></li>
+      <li data-at="0.33"><time>AUG 22</time><h3>Team meeting no. 1</h3><p>Minutes kept from day one: the next races, the next car, the plan.</p><span class="tag">Team</span></li>
+      <li data-at="0.46"><time>AUG 29</time><h3>Trackhouse Motorplex</h3><p>Race day. Both Corso drivers entered; #57 in Briggs Junior, Round 7.</p><span class="tag">Kart</span></li>
+      <li data-at="0.6"><time>OCT 03</time><h3>Trackhouse Motorplex</h3><p>Rounds 8 &amp; 9. #11 in Briggs Heavy, #57 in Briggs Junior.</p><span class="tag">Kart</span></li>
+      <li data-at="0.74" class="next"><time>NOV</time><h3>Rockingham</h3><p>The Thanksgiving race.</p><span class="tag">Upcoming</span></li>
+      <li data-at="0.88" class="next"><time>WINTER</time><h3>Tulsa Shootout</h3><p>The 42nd annual. Both drivers entered as rookies in non-wing outlaw.</p><span class="tag">Upcoming</span></li>
+    </ol>
+  </div>
+</section>
+
+<!-- ============ REEL 06 · TULSA ============ -->
+<section class="scene" id="tulsa" data-reel="NEXT: TULSA" style="--len:2.8">
+  <div class="stage">
+    <div class="layer arena"><img src="assets/img/arena.webp" srcset="assets/img/arena-1280.webp 1280w, assets/img/arena.webp 2560w" sizes="100vw" alt="A pack of non-wing micro sprints sliding into turn one in an indoor dirt arena (concept art)" loading="lazy"></div>
+    <div class="shade tulsa-shade"></div>
+    <div class="tulsa-copy">
+      <p class="reel-tag">Reel 06 <span>Next Stop</span></p>
+      <h2 class="mega2"><span>NEXT:</span> TULSA.</h2>
+      <p class="tulsa-sub">The 42nd Annual Tulsa Shootout</p>
+      <dl class="tulsa-stats">
+        <div><dt>Drivers entered</dt><dd>2</dd></div>
+        <div><dt>Rookies</dt><dd>2</dd></div>
+        <div><dt>Classes</dt><dd>Hyper Racing Non-Wing Outlaw · JRP Stock Non-Wing</dd></div>
+      </dl>
+    </div>
+  </div>
+</section>
+
+<!-- ============ REEL 07 · BEHIND THE LENS ============ -->
+<section class="scene" id="lens" data-reel="BEHIND THE LENS" style="--len:3.6">
+  <div class="stage">
+    <div class="viewfinder">
+      <video id="lensVideo" muted playsinline loop preload="none" poster="assets/img/camera.webp">
+        <source src="assets/film/corso-racing-film.mp4" type="video/mp4">
+      </video>
+      <img class="vf-still" src="assets/img/camera.webp" alt="Shooting the #11 kart on the grid, camera rolling" loading="lazy">
+      <div class="vf-ui" aria-hidden="true">
+        <i class="c tl"></i><i class="c tr"></i><i class="c bl"></i><i class="c br"></i>
+        <p class="vf-rec"><span></span>REC</p>
+        <p class="vf-tc" id="vfTc">00:00:00:00</p>
+        <p class="vf-meta">4K · 60P · ISO 800 · 1/120 · F2.8</p>
+        <p class="vf-bat"><i></i>87%</p>
+        <i class="vf-focus"></i>
+      </div>
+    </div>
+    <div class="lens-copy">
+      <p class="reel-tag">Reel 07 <span>Behind the Lens</span></p>
+      <h2>His other seat is <em>behind the camera.</em></h2>
+      <p>Nick has run camera for Kart Chaser at a nationally broadcast race, and he shoots and cuts the team's own footage. Every Corso Racing weekend gets filmed.</p>
+      <button class="btn" type="button" data-play-film><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2 1l9 5-9 5z"/></svg>Watch the team film <span>0:41</span></button>
+    </div>
+  </div>
+</section>
+
+<!-- ============ REEL 08 · THE PROGRAM ============ -->
+<section class="scene" id="program" data-reel="RUN LIKE A TEAM" style="--len:3.2">
+  <div class="stage">
+    <div class="layer paddock"><img src="assets/img/paddock.webp" srcset="assets/img/paddock-1280.webp 1280w, assets/img/paddock.webp 2560w" sizes="100vw" alt="" loading="lazy"></div>
+    <div class="shade heavy"></div>
+    <div class="program">
+      <p class="reel-tag">Reel 08 <span>The Program</span></p>
+      <h2>Run like a <em>real team.</em></h2>
+      <div class="pillars">
+        <article class="pillar"><b>01</b><h3>On track</h3><p>Two drivers, karts and micro sprints, and a season that runs from the red clay in North Carolina to Tulsa.</p></article>
+        <article class="pillar"><b>02</b><h3>On camera</h3><p>In-house media. Race-day footage and edits, shot by the team, ready to share with the people who back it.</p></article>
+        <article class="pillar"><b>03</b><h3>On paper</h3><p>A real company: Corso Racing LLC, with a member-manager, team meetings on the record, and a job description for every seat.</p></article>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ REEL 09 · PARTNER ============ -->
+<section class="scene" id="partner" data-reel="PARTNER WITH US" style="--len:2.8">
+  <div class="stage">
+    <div class="partner-copy">
+      <p class="reel-tag">Reel 09 <span>Partner With Us</span></p>
+      <h2>Put your name <em>on the car.</em></h2>
+      <p>Corso Racing is building its partner program. Placements run from the micro sprint and both karts to helmets, suits, and the team film.</p>
+      <ol class="legend" aria-hidden="true"><li><b>01</b>Side panel</li><li><b>02</b>Tail panel</li><li><b>03</b>Nose &amp; nerf bars</li><li><b>04</b>Helmet &amp; suit</li><li><b>05</b>Team film &amp; social</li></ol>
+      <div class="contact-slot" id="contactSlot"><p class="soon">Partner inquiries open soon at <b>corso.racing</b></p></div>
+    </div>
+    <div class="placements">
+      <img src="assets/img/micro-livery.webp" alt="" loading="lazy">
+      <ol class="spots" aria-label="Partner placements">
+        <li class="l" style="--x:66%;--y:40%"><span>01</span><b>Side panel</b></li>
+        <li class="l" style="--x:84%;--y:20%"><span>02</span><b>Tail panel</b></li>
+        <li style="--x:22%;--y:70%"><span>03</span><b>Nose &amp; nerf bars</b></li>
+        <li style="--x:50%;--y:16%"><span>04</span><b>Helmet &amp; suit</b></li>
+        <li style="--x:6%;--y:34%"><span>05</span><b>Team film &amp; social</b></li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<!-- ============ REEL 10 · FINISH ============ -->
+<section class="scene" id="finish" data-reel="CHECKERED" style="--len:3.8">
+  <div class="stage">
+    <div class="layer flag"><img src="assets/img/flag.webp" srcset="assets/img/flag-1280.webp 1280w, assets/img/flag.webp 2560w" sizes="100vw" alt="" loading="lazy"></div>
+    <div class="shade side"></div>
+    <div class="credits" id="credits">
+      <p class="cr-pre">Corso Racing presents</p>
+      <p class="cr-title">LIGHTS OUT</p>
+      <p class="cr-sub">The 2026 team film</p>
+      <dl>
+        <dt>Starring</dt><dd>Nicholas Corso <b>#11</b></dd><dd>Luca Corso <b>#57</b></dd>
+        <dt>Team Principal</dt><dd>Dr. Christopher D. Corso</dd>
+        <dt>Machines</dt><dd>Hyper X7 micro sprint</dd><dd>MGM karts</dd>
+        <dt>Tracks</dt><dd>Millbridge</dd><dd>Trackhouse Motorplex</dd>
+        <dt>Next</dt><dd>The 42nd Annual Tulsa Shootout</dd>
+        <dt>Home</dt><dd>Charlotte, North Carolina</dd>
+        <dt>Site, film &amp; concept art</dt><dd>Fortuity</dd>
+      </dl>
+      <p class="cr-note">Team photos are real. Concept liveries and track scenes are illustrations.</p>
+    </div>
+    <div class="final">
+      <img src="assets/logo/emblem.webp" alt="Corso Racing" width="951" height="794" loading="lazy">
+      <p class="final-line">See you at the line.</p>
+      <p class="final-foot"><span>© 2026 Corso Racing LLC</span><span>corso.racing</span><a href="#lights">Back to the start ↑</a></p>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ============ FILM MODAL ============ -->
+<div class="modal" id="modal" role="dialog" aria-modal="true" aria-label="Corso Racing team film" hidden>
+  <div class="modal-in">
+    <video id="modalVideo" controls playsinline preload="none" poster="assets/film/poster.jpg">
+      <source src="assets/film/corso-racing-film.mp4" type="video/mp4">
+    </video>
+    <button class="modal-x" id="modalX" type="button" aria-label="Close the film">✕</button>
+  </div>
+</div>
+
+<noscript><style>.loader{display:none}</style></noscript>
+<script src="js/app.js" defer></script>
+</body>
+</html>
