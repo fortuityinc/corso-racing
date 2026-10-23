@@ -479,7 +479,7 @@
   const jobs = [
     decode($('#lights .plate img').currentSrc || $('#lights .plate img').src),
     decode($('#lights .car:not(.streak) img').currentSrc || 'assets/img/hero.webp'),
-    decode('assets/logo/emblem.webp'),
+    decode('assets/logo/logo.webp'),
     document.fonts ? document.fonts.ready : Promise.resolve(),
   ];
   let done = 0;
