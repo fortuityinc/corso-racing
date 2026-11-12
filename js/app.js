@@ -262,7 +262,7 @@
         if (q.kind === 'streak') {
           q.x -= v * 3.2;
           const g = ctx.createLinearGradient(q.x, 0, q.x + q.len, 0);
-          const c = q.red ? '225,6,0' : '245,243,239';
+          const c = q.red ? '195,158,109' : '245,243,239';
           g.addColorStop(0, `rgba(${c},${(.5 * level).toFixed(3)})`);
           g.addColorStop(1, `rgba(${c},0)`);
           ctx.strokeStyle = g; ctx.lineWidth = .6 + q.z * 1.6;
@@ -270,7 +270,7 @@
           if (q.x + q.len < 0) parts.splice(i, 1);
         } else {
           q.x -= v; q.y += q.vy; q.vy += .05; q.life -= .012;
-          ctx.fillStyle = `rgba(${200 + q.z * 40 | 0},${70 + q.z * 40 | 0},${30 + q.z * 20 | 0},${(q.life * .7 * level).toFixed(3)})`;
+          ctx.fillStyle = `rgba(${205 + q.z * 30 | 0},${160 + q.z * 30 | 0},${95 + q.z * 30 | 0},${(q.life * .7 * level).toFixed(3)})`;
           ctx.beginPath(); ctx.arc(q.x, q.y, q.r, 0, 6.283); ctx.fill();
           if (q.life <= 0 || q.x < -10 || q.y > h + 10) parts.splice(i, 1);
         }
