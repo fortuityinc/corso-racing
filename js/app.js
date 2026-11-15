@@ -7,6 +7,9 @@
   // Set to the team inbox once it exists (e.g. 'team@corso.racing'); until then the
   // partner reel says inquiries open soon.
   const CONTACT_EMAIL = '';
+  // The team film still shows the old red livery. Set to true once it is re-rendered in gold:
+  // that brings back both film buttons and the clip in the Reel 07 viewfinder.
+  const FILM_LIVE = false;
 
   const $ = (s, r = document) => r.querySelector(s);
   const $$ = (s, r = document) => [...r.querySelectorAll(s)];
@@ -169,7 +172,7 @@
       set(st, '--vf', out3(seg(p, 0, .3)));
       set(st, '--lc', out3(seg(p, .18, .38)));
       set(st, '--fz', 1 + .08 * Math.sin(p * 40));
-      lensWanted = p > .04 && p < .985;
+      lensWanted = FILM_LIVE && p > .04 && p < .985;
       if (lensWanted && lensVideo.preload === 'none') { lensVideo.preload = 'auto'; lensVideo.load(); }
       if (lensReady) set(st, '--still', 1 - out3(seg(p, .22, .36)));
       const t = lensReady && !lensVideo.paused ? lensVideo.currentTime : p * 41;
@@ -364,6 +367,7 @@
   }
   $('#playFilm').addEventListener('click', openFilm);
   $$('[data-play-film]').forEach(b => b.addEventListener('click', openFilm));
+  if (FILM_LIVE) $$('#playFilm, [data-play-film]').forEach(b => { b.hidden = false; });
   $('#modalX').addEventListener('click', closeFilm);
   modal.addEventListener('click', e => { if (e.target === modal) closeFilm(); });
   addEventListener('keydown', e => { if (e.key === 'Escape' && !modal.hidden) closeFilm(); });

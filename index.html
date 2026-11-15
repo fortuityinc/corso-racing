@@ -22,7 +22,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,500;0,600;0,700;0,800;0,900;1,700;1,800;1,900&family=Barlow:wght@400;500;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
 <link rel="preload" as="image" href="assets/img/hero-plate.webp" fetchpriority="high">
 <link rel="preload" as="image" href="assets/img/hero.webp">
-<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/style.css?v=gold1">
 <script>document.documentElement.className = 'js';</script>
 </head>
 <body>
@@ -49,7 +49,7 @@
   </a>
   <p class="hud-reel" aria-live="polite"><span id="reelNo">01</span><b id="reelName">LIGHTS OUT</b></p>
   <div class="hud-actions">
-    <button class="hud-btn" id="playFilm" type="button"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2 1l9 5-9 5z"/></svg>FILM <span>0:41</span></button>
+    <button class="hud-btn" id="playFilm" type="button" hidden><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2 1l9 5-9 5z"/></svg>FILM <span>0:41</span></button>
     <button class="hud-btn" id="soundBtn" type="button" aria-pressed="false"><span class="eq" aria-hidden="true"><i></i><i></i><i></i><i></i></span><span id="soundLbl">SOUND OFF</span></button>
   </div>
 </header>
@@ -293,7 +293,7 @@
       <p class="reel-tag">Reel 07 <span>Behind the Lens</span></p>
       <h2>His other seat is <em>behind the camera.</em></h2>
       <p>Nick has run camera for Kart Chaser at a nationally broadcast race, and he shoots and cuts the team's own footage. Every Corso Racing weekend gets filmed.</p>
-      <button class="btn" type="button" data-play-film><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2 1l9 5-9 5z"/></svg>Watch the team film <span>0:41</span></button>
+      <button class="btn" type="button" data-play-film hidden><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2 1l9 5-9 5z"/></svg>Watch the team film <span>0:41</span></button>
     </div>
   </div>
 </section>
@@ -379,6 +379,6 @@
 </div>
 
 <noscript><style>.loader{display:none}</style></noscript>
-<script src="js/app.js" defer></script>
+<script src="js/app.js?v=gold1" defer></script>
 </body>
 </html>
