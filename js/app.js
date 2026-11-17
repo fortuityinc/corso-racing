@@ -7,9 +7,6 @@
   // Set to the team inbox once it exists (e.g. 'team@corso.racing'); until then the
   // partner reel says inquiries open soon.
   const CONTACT_EMAIL = '';
-  // The team film still shows the old red livery. Set to true once it is re-rendered in gold:
-  // that brings back both film buttons and the clip in the Reel 07 viewfinder.
-  const FILM_LIVE = false;
 
   const $ = (s, r = document) => r.querySelector(s);
   const $$ = (s, r = document) => [...r.querySelectorAll(s)];
@@ -91,9 +88,7 @@
   const spots = $$('.spots li');
   const credits = $('#credits');
   const final = $('.final');
-  const lensVideo = $('#lensVideo');
   const vfTc = $('#vfTc');
-  let lensReady = false, lensWanted = false;
 
   const REELS = {
     lights(p, st) {
@@ -172,11 +167,7 @@
       set(st, '--vf', out3(seg(p, 0, .3)));
       set(st, '--lc', out3(seg(p, .18, .38)));
       set(st, '--fz', 1 + .08 * Math.sin(p * 40));
-      lensWanted = FILM_LIVE && p > .04 && p < .985;
-      if (lensWanted && lensVideo.preload === 'none') { lensVideo.preload = 'auto'; lensVideo.load(); }
-      if (lensReady) set(st, '--still', 1 - out3(seg(p, .22, .36)));
-      const t = lensReady && !lensVideo.paused ? lensVideo.currentTime : p * 41;
-      vfTc.textContent = timecode(t);
+      vfTc.textContent = timecode(p * 41);
     },
     program(p, st) {
       set(st, '--z', 1.12 - .08 * ease(p));
@@ -283,98 +274,6 @@
     return { resize, step };
   })();
 
-  // ------------------------------------------------------------ engine sound (Web Audio)
-  const engine = (() => {
-    let ac = null, nodes = null, on = false;
-    function build() {
-      ac = new (window.AudioContext || window.webkitAudioContext)();
-      const master = ac.createGain(); master.gain.value = 0;
-      const comp = ac.createDynamicsCompressor();
-      master.connect(comp).connect(ac.destination);
-      const lp = ac.createBiquadFilter(); lp.type = 'lowpass'; lp.frequency.value = 500; lp.Q.value = 4;
-      const shaper = ac.createWaveShaper();
-      const curve = new Float32Array(1024);
-      for (let i = 0; i < 1024; i++) { const x = i / 512 - 1; curve[i] = Math.tanh(x * 3.2); }
-      shaper.curve = curve;
-      const body = ac.createGain(); body.gain.value = .5;
-      const pulse = ac.createGain(); pulse.gain.value = .6;              // firing pulses
-      const o1 = ac.createOscillator(); o1.type = 'sawtooth';
-      const o2 = ac.createOscillator(); o2.type = 'square'; o2.detune.value = 9;
-      const o3 = ac.createOscillator(); o3.type = 'sawtooth';
-      const g3 = ac.createGain(); g3.gain.value = .3;
-      const lfo = ac.createOscillator(); lfo.type = 'square';
-      const lfoAmt = ac.createGain(); lfoAmt.gain.value = .4;
-      lfo.connect(lfoAmt).connect(pulse.gain);
-      o1.connect(body); o2.connect(body); o3.connect(g3).connect(body);
-      body.connect(pulse).connect(shaper).connect(lp).connect(master);
-      // wind/roost bed
-      const buf = ac.createBuffer(1, ac.sampleRate * 2, ac.sampleRate);
-      const ch = buf.getChannelData(0);
-      for (let i = 0; i < ch.length; i++) ch[i] = Math.random() * 2 - 1;
-      const noise = ac.createBufferSource(); noise.buffer = buf; noise.loop = true;
-      const bp = ac.createBiquadFilter(); bp.type = 'bandpass'; bp.frequency.value = 900; bp.Q.value = .7;
-      const ng = ac.createGain(); ng.gain.value = 0;
-      noise.connect(bp).connect(ng).connect(master);
-      [o1, o2, o3, lfo, noise].forEach(n => n.start());
-      nodes = { master, lp, o1, o2, o3, lfo, ng, bp };
-      update(0);
-    }
-    function update(s) {           // s: 0 (idle) .. 1 (flat out)
-      if (!nodes || !on) return;
-      const t = ac.currentTime, f = 36 + s * 150;
-      nodes.o1.frequency.setTargetAtTime(f, t, .07);
-      nodes.o2.frequency.setTargetAtTime(f * 1.5, t, .07);
-      nodes.o3.frequency.setTargetAtTime(f * 2.01, t, .07);
-      nodes.lfo.frequency.setTargetAtTime(f / 2, t, .07);
-      nodes.lp.frequency.setTargetAtTime(380 + s * 2800, t, .1);
-      nodes.ng.gain.setTargetAtTime(.015 + s * .12, t, .15);
-      nodes.bp.frequency.setTargetAtTime(600 + s * 1800, t, .15);
-    }
-    async function toggle() {
-      on = !on;
-      if (on && !ac) build();
-      if (ac && ac.state === 'suspended') await ac.resume();
-      if (nodes) nodes.master.gain.setTargetAtTime(on ? .32 : 0, ac.currentTime, .2);
-      store.set('cr-sound', on ? '1' : '0');
-      return on;
-    }
-    return { toggle, update, get on() { return on; } };
-  })();
-
-  const soundBtn = $('#soundBtn'), soundLbl = $('#soundLbl');
-  soundBtn.addEventListener('click', async () => {
-    const on = await engine.toggle();
-    soundBtn.setAttribute('aria-pressed', String(on));
-    soundLbl.textContent = on ? 'SOUND ON' : 'SOUND OFF';
-  });
-
-  // ------------------------------------------------------------ film modal
-  const modal = $('#modal'), modalVideo = $('#modalVideo');
-  let lastFocus = null;
-  function openFilm() {
-    lastFocus = document.activeElement;
-    modal.hidden = false;
-    lensVideo.pause();
-    modalVideo.preload = 'auto';
-    const p = modalVideo.play();
-    if (p && p.catch) p.catch(() => {});
-    $('#modalX').focus();
-  }
-  function closeFilm() {
-    modalVideo.pause();
-    modal.hidden = true;
-    if (lastFocus) lastFocus.focus();
-  }
-  $('#playFilm').addEventListener('click', openFilm);
-  $$('[data-play-film]').forEach(b => b.addEventListener('click', openFilm));
-  if (FILM_LIVE) $$('#playFilm, [data-play-film]').forEach(b => { b.hidden = false; });
-  $('#modalX').addEventListener('click', closeFilm);
-  modal.addEventListener('click', e => { if (e.target === modal) closeFilm(); });
-  addEventListener('keydown', e => { if (e.key === 'Escape' && !modal.hidden) closeFilm(); });
-
-  // the viewfinder joins the film where the car comes in, not on the start lights
-  lensVideo.addEventListener('loadeddata', () => { lensReady = true; try { lensVideo.currentTime = 5.2; } catch (e) { /* not seekable yet */ } }, { once: true });
-
   // ------------------------------------------------------------ partner contact
   if (CONTACT_EMAIL) {
     $('#contactSlot').innerHTML = `<a class="btn" href="mailto:${CONTACT_EMAIL}?subject=Corso%20Racing%20partnership">Talk partnerships <span>${CONTACT_EMAIL}</span></a>`;
@@ -400,10 +299,6 @@
       REELS[s.id] && REELS[s.id](p, s.stage);
     }
 
-    // lens video only plays while its reel is on screen
-    if (byId.lens.on && lensWanted && modal.hidden) { if (lensVideo.paused) { const pr = lensVideo.play(); if (pr && pr.catch) pr.catch(() => {}); } }
-    else if (!lensVideo.paused) lensVideo.pause();
-
     if (cur !== current) {
       current = cur;
       const s = scenes[cur];
@@ -427,7 +322,6 @@
     tcEl.textContent = timecode(sy / maxY * 240);
     scrubFill.style.setProperty('--prog', (sy / maxY * 100).toFixed(2) + '%');
     fx.step(speed, look[1]);
-    engine.update(clamp(mph / 110));
     requestAnimationFrame(frame);
   }
 

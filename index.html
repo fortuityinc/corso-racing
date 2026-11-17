@@ -22,7 +22,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,500;0,600;0,700;0,800;0,900;1,700;1,800;1,900&family=Barlow:wght@400;500;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
 <link rel="preload" as="image" href="assets/img/hero-plate.webp" fetchpriority="high">
 <link rel="preload" as="image" href="assets/img/hero.webp">
-<link rel="stylesheet" href="css/style.css?v=gold1">
+<link rel="stylesheet" href="css/style.css?v=gold2">
 <script>document.documentElement.className = 'js';</script>
 </head>
 <body>
@@ -48,10 +48,6 @@
     <span>CORSO <em>RACING</em></span>
   </a>
   <p class="hud-reel" aria-live="polite"><span id="reelNo">01</span><b id="reelName">LIGHTS OUT</b></p>
-  <div class="hud-actions">
-    <button class="hud-btn" id="playFilm" type="button" hidden><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2 1l9 5-9 5z"/></svg>FILM <span>0:41</span></button>
-    <button class="hud-btn" id="soundBtn" type="button" aria-pressed="false"><span class="eq" aria-hidden="true"><i></i><i></i><i></i><i></i></span><span id="soundLbl">SOUND OFF</span></button>
-  </div>
 </header>
 
 <footer class="hud hud-bottom" aria-hidden="true">
@@ -276,9 +272,6 @@
 <section class="scene" id="lens" data-reel="BEHIND THE LENS" style="--len:3.6">
   <div class="stage">
     <div class="viewfinder">
-      <video id="lensVideo" muted playsinline loop preload="none" poster="assets/img/camera.webp">
-        <source src="assets/film/corso-racing-film.mp4" type="video/mp4">
-      </video>
       <img class="vf-still" src="assets/img/camera.webp" alt="Shooting the #11 kart on the grid, camera rolling" loading="lazy">
       <div class="vf-ui" aria-hidden="true">
         <i class="c tl"></i><i class="c tr"></i><i class="c bl"></i><i class="c br"></i>
@@ -293,7 +286,6 @@
       <p class="reel-tag">Reel 07 <span>Behind the Lens</span></p>
       <h2>His other seat is <em>behind the camera.</em></h2>
       <p>Nick has run camera for Kart Chaser at a nationally broadcast race, and he shoots and cuts the team's own footage. Every Corso Racing weekend gets filmed.</p>
-      <button class="btn" type="button" data-play-film hidden><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2 1l9 5-9 5z"/></svg>Watch the team film <span>0:41</span></button>
     </div>
   </div>
 </section>
@@ -321,8 +313,8 @@
     <div class="partner-copy">
       <p class="reel-tag">Reel 09 <span>Partner With Us</span></p>
       <h2>Put your name <em>on the car.</em></h2>
-      <p>Corso Racing is building its partner program. Placements run from the micro sprint and both karts to helmets, suits, and the team film.</p>
-      <ol class="legend" aria-hidden="true"><li><b>01</b>Side panel</li><li><b>02</b>Tail panel</li><li><b>03</b>Nose &amp; nerf bars</li><li><b>04</b>Helmet &amp; suit</li><li><b>05</b>Team film &amp; social</li></ol>
+      <p>Corso Racing is building its partner program. Placements run from the micro sprint and both karts to helmets and suits.</p>
+      <ol class="legend" aria-hidden="true"><li><b>01</b>Side panel</li><li><b>02</b>Tail panel</li><li><b>03</b>Nose &amp; nerf bars</li><li><b>04</b>Helmet &amp; suit</li><li><b>05</b>Team media &amp; social</li></ol>
       <div class="contact-slot" id="contactSlot"><p class="soon">Partner inquiries open soon at <b>corso.racing</b></p></div>
     </div>
     <div class="placements">
@@ -332,7 +324,7 @@
         <li class="l" style="--x:84%;--y:20%"><span>02</span><b>Tail panel</b></li>
         <li style="--x:22%;--y:70%"><span>03</span><b>Nose &amp; nerf bars</b></li>
         <li style="--x:50%;--y:16%"><span>04</span><b>Helmet &amp; suit</b></li>
-        <li style="--x:6%;--y:34%"><span>05</span><b>Team film &amp; social</b></li>
+        <li style="--x:6%;--y:34%"><span>05</span><b>Team media &amp; social</b></li>
       </ol>
     </div>
   </div>
@@ -346,7 +338,7 @@
     <div class="credits" id="credits">
       <p class="cr-pre">Corso Racing presents</p>
       <p class="cr-title">LIGHTS OUT</p>
-      <p class="cr-sub">The 2026 team film</p>
+      <p class="cr-sub">The 2026 season</p>
       <dl>
         <dt>Starring</dt><dd>Nicholas Corso <b>#11</b></dd><dd>Luca Corso <b>#57</b></dd>
         <dt>Team Principal</dt><dd>Dr. Christopher D. Corso</dd>
@@ -354,7 +346,7 @@
         <dt>Tracks</dt><dd>Millbridge</dd><dd>Trackhouse Motorplex</dd>
         <dt>Next</dt><dd>The 42nd Annual Tulsa Shootout</dd>
         <dt>Home</dt><dd>Charlotte, North Carolina</dd>
-        <dt>Site, film &amp; concept art</dt><dd>Fortuity</dd>
+        <dt>Site &amp; concept art</dt><dd>Fortuity</dd>
       </dl>
       <p class="cr-note">Concept liveries and track scenes are illustrations.</p>
     </div>
@@ -368,17 +360,7 @@
 
 </main>
 
-<!-- ============ FILM MODAL ============ -->
-<div class="modal" id="modal" role="dialog" aria-modal="true" aria-label="Corso Racing team film" hidden>
-  <div class="modal-in">
-    <video id="modalVideo" controls playsinline preload="none" poster="assets/film/poster.jpg">
-      <source src="assets/film/corso-racing-film.mp4" type="video/mp4">
-    </video>
-    <button class="modal-x" id="modalX" type="button" aria-label="Close the film">✕</button>
-  </div>
-</div>
-
 <noscript><style>.loader{display:none}</style></noscript>
-<script src="js/app.js?v=gold1" defer></script>
+<script src="js/app.js?v=gold2" defer></script>
 </body>
 </html>

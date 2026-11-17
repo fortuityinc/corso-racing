@@ -4,7 +4,7 @@ Static site for Corso Racing, a race team from Charlotte, North Carolina: Nichol
 
 One scroll-scrubbed page in ten reels (`index.html`, `css/style.css`, `js/app.js`), served by GitHub Pages at https://corso.racing. No build step; edit and push.
 
-- `?at=<reel>,<progress>` jumps to a point in the film for review (for example `?at=season,0.5`).
+- `?at=<reel>,<progress>` jumps to a point on the page for review (for example `?at=season,0.5`).
 - Team inbox: set `CONTACT_EMAIL` at the top of `js/app.js` once it exists.
 - The page carries `noindex` until the team signs off; flip the robots meta in `index.html` to publish to search engines.
 - Concept liveries and track scenes are illustrations.
